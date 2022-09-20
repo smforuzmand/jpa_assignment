@@ -20,7 +20,7 @@ public class RecipeIngredient {
     private Measurement measurement;
 
     @ManyToOne(cascade = {MERGE, PERSIST, REFRESH, DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ingredient")
+   // @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
     @ManyToOne(cascade = {PERSIST, MERGE, DETACH, REFRESH},

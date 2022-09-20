@@ -12,8 +12,11 @@ public class RecipeCategory {
     private int id;
     private String category;
 
-    @OneToMany(cascade = {CascadeType.ALL}
+    @ManyToMany (cascade = {CascadeType.ALL}
             , fetch = FetchType.EAGER)
+    @JoinTable(name = "recipe_recipe_category" ,
+    joinColumns = @JoinColumn(name = "recipe_category_id"),
+    inverseJoinColumns = @JoinColumn(name = "recipe_id"))
     private Set<Recipe> recipe;
 
 

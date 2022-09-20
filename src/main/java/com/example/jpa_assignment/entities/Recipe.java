@@ -15,15 +15,15 @@ public class Recipe {
     private int id;
     private String recipeName;
 
-    @OneToMany(mappedBy = "recipe")
+    @OneToMany(cascade = {MERGE,REFRESH,PERSIST,DETACH},mappedBy = "recipe")
     private List<RecipeIngredient> recipeIngredients;
 
-    @OneToOne
+    @OneToOne(cascade = ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "instruction_id", referencedColumnName = "id")
     private RecipeInstruction instruction;
 
     @ManyToMany(cascade = {PERSIST, REFRESH, MERGE})
-    @JoinTable(name = "recipe_category",
+    @JoinTable(name = "recipe_recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_category_id"))
 
