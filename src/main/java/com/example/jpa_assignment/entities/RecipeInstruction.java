@@ -1,10 +1,15 @@
 package com.example.jpa_assignment.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
-
+@Entity
 public class RecipeInstruction {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private String id;
+
+    @Column(nullable = false)
     private String instruction;
 
     public RecipeInstruction(String instruction) {

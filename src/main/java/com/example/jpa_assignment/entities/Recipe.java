@@ -1,15 +1,32 @@
 package com.example.jpa_assignment.entities;
 
+import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.*;
+
+@Entity
 public class Recipe {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String recipeName;
+
+    @OneToMany(mappedBy = "recipe")
     private List<RecipeIngredient> recipeIngredients;
+
+    @OneToOne
+    @JoinColumn(name = "instruction_id", referencedColumnName = "id")
     private RecipeInstruction instruction;
+
+    @ManyToMany(cascade = {PERSIST, REFRESH, MERGE})
+    @JoinTable(name = "recipe_category",
+            joinColumns = @JoinColumn(name = "recipe_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipe_category_id"))
+
     private Set<RecipeCategory> categories;
 
 
@@ -50,6 +67,7 @@ public class Recipe {
     public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
+
 
     public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;

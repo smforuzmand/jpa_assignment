@@ -1,11 +1,19 @@
 package com.example.jpa_assignment.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 import java.util.Set;
 
+@Entity
 public class RecipeCategory {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String category;
+
+    @OneToMany(cascade = {CascadeType.ALL}
+            , fetch = FetchType.EAGER)
     private Set<Recipe> recipe;
 
 

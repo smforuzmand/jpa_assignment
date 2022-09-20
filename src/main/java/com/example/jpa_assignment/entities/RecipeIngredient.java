@@ -1,13 +1,31 @@
 package com.example.jpa_assignment.entities;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.ManyToAny;
+
+import javax.persistence.*;
 import java.util.Objects;
 
+import static javax.persistence.CascadeType.*;
+
+@Entity
 public class RecipeIngredient {
 
+    @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
-    private Ingredient ingredient;
     private double amount;
     private Measurement measurement;
+
+    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH, DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ingredient")
+    private Ingredient ingredient;
+
+    @ManyToOne(cascade = {PERSIST, MERGE, DETACH, REFRESH},
+            fetch = FetchType.LAZY)
+    @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
 

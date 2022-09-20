@@ -1,11 +1,17 @@
 package com.example.jpa_assignment.entities;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity
 public class Ingredient {
 
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(nullable = false,unique = true)
     private String ingredientName;
 
 
