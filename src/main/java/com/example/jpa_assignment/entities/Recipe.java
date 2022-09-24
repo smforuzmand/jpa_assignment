@@ -1,21 +1,23 @@
 package com.example.jpa_assignment.entities;
 
+import jdk.jfr.Category;
+import net.bytebuddy.implementation.bytecode.Throw;
+
 import javax.persistence.*;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 import static javax.persistence.CascadeType.*;
 
 @Entity
+@Table
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String recipeName;
 
-    @OneToMany(cascade = {MERGE,REFRESH,PERSIST,DETACH},mappedBy = "recipe")
+    @OneToMany(cascade = {MERGE, REFRESH, PERSIST, DETACH}, mappedBy = "recipe")
     private List<RecipeIngredient> recipeIngredients;
 
     @OneToOne(cascade = ALL, fetch = FetchType.EAGER)
@@ -26,8 +28,41 @@ public class Recipe {
     @JoinTable(name = "recipe_recipe_category",
             joinColumns = @JoinColumn(name = "recipe_id"),
             inverseJoinColumns = @JoinColumn(name = "recipe_category_id"))
-
     private Set<RecipeCategory> categories;
+
+
+    //Convenience methods
+    public void addCategory(RecipeCategory recipeCategory) {
+
+        if (recipeCategory==null) throw new IllegalArgumentException("null");
+        if (categories==null)
+            categories = new HashSet<>();
+        if (!categories.contains(recipeCategory)) {
+            categories.add(recipeCategory);
+        }
+    }
+
+    public void removeCategory(RecipeCategory recipeCategory) {
+        if (categories.contains(recipeCategory)) {
+            categories.remove(recipeCategory);
+        }
+    }
+
+    public void addRecipeIngredients(RecipeIngredient recipeIngredient) {
+
+        if (recipeIngredient == null) throw new IllegalArgumentException("null value not allowed");
+        if (recipeIngredients == null) {
+            recipeIngredients = new ArrayList<>();
+
+            if (!recipeIngredients.contains(recipeIngredient)) {
+                recipeIngredients.add(recipeIngredient);
+
+            }
+
+        }
+
+
+    }
 
 
     public Recipe() {
@@ -45,7 +80,8 @@ public class Recipe {
         this.recipeName = recipeName;
         this.recipeIngredients = recipeIngredients;
         this.instruction = instruction;
-        this.categories = categories;
+        setCategories(new HashSet<>());
+        setRecipeIngredients(new ArrayList<>());
     }
 
     public int getId() {

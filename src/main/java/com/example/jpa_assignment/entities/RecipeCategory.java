@@ -1,6 +1,7 @@
 package com.example.jpa_assignment.entities;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -17,21 +18,40 @@ public class RecipeCategory {
     @JoinTable(name = "recipe_recipe_category" ,
     joinColumns = @JoinColumn(name = "recipe_category_id"),
     inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Set<Recipe> recipe;
+    private Set<Recipe> recipes;
 
+    //Convenience method to add/remove recipe
+
+    public void addRecipe(Recipe recipe) {
+        if (recipes == null) {
+            recipes = new HashSet<>();
+        }
+        if (!recipes.contains(recipe)) {
+            recipes.add(recipe);
+        }
+    }
+
+    public void removeRecipe(Recipe recipe) {
+        if (recipes.contains(recipe)) {
+            recipes.remove(recipe);
+        }
+
+    }
 
     public RecipeCategory() {
     }
 
-    public RecipeCategory(String category, Set<Recipe> recipe) {
+    public RecipeCategory(String category, Set<Recipe> recipes) {
         this.category = category;
-        this.recipe = recipe;
+        this.recipes = recipes;
+
+
     }
 
-    public RecipeCategory(int id, String category, Set<Recipe> recipe) {
+    public RecipeCategory(int id, String category) {
         this.id = id;
         this.category = category;
-        this.recipe = recipe;
+        setRecipe(new HashSet<>());
     }
 
     public int getId() {
@@ -51,11 +71,11 @@ public class RecipeCategory {
     }
 
     public Set<Recipe> getRecipe() {
-        return recipe;
+        return recipes;
     }
 
     public void setRecipe(Set<Recipe> recipe) {
-        this.recipe = recipe;
+        this.recipes = recipe;
     }
 
     @Override
@@ -76,7 +96,7 @@ public class RecipeCategory {
         return "RecipeCategory{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
-                ", recipe=" + recipe +
+                ", recipes=" + recipes +
                 '}';
     }
 }
