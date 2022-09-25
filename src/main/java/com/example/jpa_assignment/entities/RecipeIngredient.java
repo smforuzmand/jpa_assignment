@@ -13,8 +13,8 @@ import static javax.persistence.CascadeType.*;
 public class RecipeIngredient {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(name = "system-uuid", strategy = "uuid")
     @Column(name = "recipe_ingredient_id")
     private String id;
     private double amount;

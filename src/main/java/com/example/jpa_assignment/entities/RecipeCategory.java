@@ -22,6 +22,21 @@ public class RecipeCategory {
 
     //Convenience method to add/remove recipe
 
+    public RecipeCategory() {
+    }
+
+    public RecipeCategory(String category) {
+        this.category = category;
+        setRecipe(new HashSet<>());
+
+    }
+
+    public RecipeCategory(int id, String category) {
+        this.id = id;
+        this.category = category;
+        setRecipe(new HashSet<>());
+    }
+
     public void addRecipe(Recipe recipe) {
         if (recipes == null) {
             recipes = new HashSet<>();
@@ -36,22 +51,6 @@ public class RecipeCategory {
             recipes.remove(recipe);
         }
 
-    }
-
-    public RecipeCategory() {
-    }
-
-    public RecipeCategory(String category, Set<Recipe> recipes) {
-        this.category = category;
-        this.recipes = recipes;
-
-
-    }
-
-    public RecipeCategory(int id, String category) {
-        this.id = id;
-        this.category = category;
-        setRecipe(new HashSet<>());
     }
 
     public int getId() {

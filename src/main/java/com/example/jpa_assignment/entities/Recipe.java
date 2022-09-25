@@ -31,11 +31,30 @@ public class Recipe {
     private Set<RecipeCategory> categories;
 
 
+    public Recipe() {
+    }
+
+    public Recipe(int id, String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories) {
+        this.id = id;
+        this.recipeName = recipeName;
+        this.recipeIngredients = recipeIngredients;
+        this.instruction = instruction;
+        this.categories = categories;
+    }
+
+    public Recipe(String recipeName, RecipeInstruction instruction) {
+        this.recipeName = recipeName;
+        this.instruction = instruction;
+        setRecipeIngredients(new ArrayList<>());
+        setCategories(new HashSet<>());
+        setRecipeIngredients(new ArrayList<>());
+    }
+
     //Convenience methods
     public void addCategory(RecipeCategory recipeCategory) {
 
-        if (recipeCategory==null) throw new IllegalArgumentException("null");
-        if (categories==null)
+        if (recipeCategory == null) throw new IllegalArgumentException("null");
+        if (categories == null)
             categories = new HashSet<>();
         if (!categories.contains(recipeCategory)) {
             categories.add(recipeCategory);
@@ -64,24 +83,10 @@ public class Recipe {
 
     }
 
-
-    public Recipe() {
-    }
-
-    public Recipe(int id, String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories) {
-        this.id = id;
-        this.recipeName = recipeName;
-        this.recipeIngredients = recipeIngredients;
-        this.instruction = instruction;
-        this.categories = categories;
-    }
-
-    public Recipe(String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories) {
-        this.recipeName = recipeName;
-        this.recipeIngredients = recipeIngredients;
-        this.instruction = instruction;
-        setCategories(new HashSet<>());
-        setRecipeIngredients(new ArrayList<>());
+    public void removeIngredients(RecipeIngredient recipeIngredient) {
+        if (recipeIngredients.contains(recipeIngredient)) {
+            recipeIngredients.remove(recipeIngredient);
+        }
     }
 
     public int getId() {

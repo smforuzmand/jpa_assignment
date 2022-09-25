@@ -5,6 +5,9 @@ import com.example.jpa_assignment.data.RecipeIngredientRepository;
 import com.example.jpa_assignment.data.RecipeInstructionRepository;
 import com.example.jpa_assignment.data.RecipeRepository;
 import com.example.jpa_assignment.entities.Ingredient;
+import com.example.jpa_assignment.entities.Recipe;
+import com.example.jpa_assignment.entities.RecipeIngredient;
+import com.example.jpa_assignment.entities.RecipeInstruction;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -44,11 +47,40 @@ public class JpaAssignmentApplication {
 		public void run(String... args) throws Exception {
 			System.out.println("--------------Welcome to the recipe application-------------------");
 
-			
-	Ingredient Salt = ingredientRepository.save(new Ingredient("salt"));
+
+		}
+
+		private void seedingData() throws InterruptedException {
+
+
+			//---------------seeding Ingredients----------------
+			Ingredient backingPowder = ingredientRepository.save(new Ingredient("bakingPowder"));
+			Ingredient strawBerry = ingredientRepository.save(new Ingredient("strawBerry"));
+			Ingredient maskarpone = ingredientRepository.save(new Ingredient("maskiarpone"));
+			Ingredient blueCheese = ingredientRepository.save(new Ingredient("blueCheese"));
+			Ingredient banana = ingredientRepository.save(new Ingredient("banana"));
+
+
+			//---------------seeding RecipeInstruction----------
+			RecipeInstruction instuctionChimalio = recipeInstructionRepository.save(new RecipeInstruction("Instruction for Chimalio Cake"));
+			RecipeInstruction instructionRedvelvet = recipeInstructionRepository.save(new RecipeInstruction("Instruction for Redvelvet cake"));
+			RecipeInstruction instructionCupCake = recipeInstructionRepository.save(new RecipeInstruction("Instruction for CupCake"));
+
+			//--------------seeding recipe----------------------
+			Recipe chimalio = recipeRepository.save(new Recipe("chimalio", instuctionChimalio));
+
+
+
+
 
 
 		}
+
+
+
+
+
+
 
 
 
