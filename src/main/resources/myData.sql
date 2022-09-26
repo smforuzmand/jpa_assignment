@@ -22,4 +22,5 @@ INSERT INTO jpa_assignment.recipe(id, recipe_name, instruction_id) VALUES (33,'V
 
 
 INSERT INTO jpa_assignment.recipe_ingredient(recipe_ingredient_id,amount, measurement, ingredient_id, recipe_id)VALUES(40,20, 2, 7, 30);
+INSERT INTO jpa_assignment.recipe_ingredient(recipe_ingredient_id, amount, measurement, ingredient_id, recipe_id)VALUES (41, 22, 2, 5, 30);
 
