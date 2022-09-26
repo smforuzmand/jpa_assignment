@@ -1,27 +1,24 @@
 package com.example.jpa_assignment.entities;
 
-import jdk.jfr.Category;
-import net.bytebuddy.implementation.bytecode.Throw;
-
 import javax.persistence.*;
 import java.util.*;
 
 import static javax.persistence.CascadeType.*;
 
 @Entity
-@Table
+
 public class Recipe {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int recipeId;
     private String recipeName;
 
-    @OneToMany(cascade = {MERGE, REFRESH, PERSIST, DETACH}, mappedBy = "recipe")
+    @OneToMany(cascade = {MERGE, REFRESH, DETACH}, fetch = FetchType.LAZY, mappedBy = "recipe")
     private List<RecipeIngredient> recipeIngredients;
 
     @OneToOne(cascade = ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "instruction_id", referencedColumnName = "id")
+    @JoinColumn(name = "instruction_id")
     private RecipeInstruction instruction;
 
     @ManyToMany(cascade = {PERSIST, REFRESH, MERGE})
@@ -34,8 +31,9 @@ public class Recipe {
     public Recipe() {
     }
 
-    public Recipe(int id, String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction, Set<RecipeCategory> categories) {
-        this.id = id;
+    public Recipe(int recipeId, String recipeName, List<RecipeIngredient> recipeIngredients, RecipeInstruction instruction,
+                  Set<RecipeCategory> categories) {
+        this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.recipeIngredients = recipeIngredients;
         this.instruction = instruction;
@@ -47,7 +45,6 @@ public class Recipe {
         this.instruction = instruction;
         setRecipeIngredients(new ArrayList<>());
         setCategories(new HashSet<>());
-        setRecipeIngredients(new ArrayList<>());
     }
 
     //Convenience methods
@@ -89,12 +86,12 @@ public class Recipe {
         }
     }
 
-    public int getId() {
-        return id;
+    public int getRecipeId() {
+        return recipeId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setRecipeId(int id) {
+        this.recipeId = id;
     }
 
     public String getRecipeName() {
@@ -134,18 +131,18 @@ public class Recipe {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Recipe recipe)) return false;
-        return getId() == recipe.getId() && Objects.equals(getRecipeName(), recipe.getRecipeName()) && Objects.equals(getRecipeIngredients(), recipe.getRecipeIngredients()) && Objects.equals(getInstruction(), recipe.getInstruction()) && Objects.equals(getCategories(), recipe.getCategories());
+        return getRecipeId() == recipe.getRecipeId() && Objects.equals(getRecipeName(), recipe.getRecipeName()) && Objects.equals(getRecipeIngredients(), recipe.getRecipeIngredients()) && Objects.equals(getInstruction(), recipe.getInstruction()) && Objects.equals(getCategories(), recipe.getCategories());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getRecipeName(), getRecipeIngredients(), getInstruction(), getCategories());
+        return Objects.hash(getRecipeId(), getRecipeName(), getRecipeIngredients(), getInstruction(), getCategories());
     }
 
     @Override
     public String toString() {
         return "Recipe{" +
-                "id=" + id +
+                "id=" + recipeId +
                 ", recipeName='" + recipeName + '\'' +
                 ", recipeIngredients=" + recipeIngredients +
                 ", instruction=" + instruction +

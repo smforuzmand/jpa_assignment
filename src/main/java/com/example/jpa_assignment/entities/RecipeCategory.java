@@ -14,7 +14,7 @@ public class RecipeCategory {
     private String category;
 
     @ManyToMany (cascade = {CascadeType.ALL}
-            , fetch = FetchType.EAGER)
+            , fetch = FetchType.LAZY)
     @JoinTable(name = "recipe_recipe_category" ,
     joinColumns = @JoinColumn(name = "recipe_category_id"),
     inverseJoinColumns = @JoinColumn(name = "recipe_id"))

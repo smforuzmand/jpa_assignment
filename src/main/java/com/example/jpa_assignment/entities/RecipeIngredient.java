@@ -20,11 +20,11 @@ public class RecipeIngredient {
     private double amount;
     private Measurement measurement;
 
-    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH, DETACH}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH, DETACH}, fetch = FetchType.EAGER)
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @ManyToOne(cascade = {PERSIST, MERGE, DETACH, REFRESH},
+    @ManyToOne(cascade = { MERGE, DETACH, REFRESH},
             fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;

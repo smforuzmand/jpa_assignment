@@ -17,12 +17,12 @@ public interface RecipeRepository extends JpaRepository<Recipe , Integer> {
 
     //Search for recipes where recipe name contains specified String.
 
-    @Query("SELECT r FROM Recipe r WHERE r.recipeName LIKE  '%name%' ")
-    Optional<Recipe> findRecipesByRecipeNameContaining(@Param("name") String recipeName );
+    @Query("SELECT r FROM Recipe r WHERE LOWER(r.recipeName)  LIKE LOWER(concat('%' , :name , '%') )   ")
+    List<Recipe> findRecipesByRecipeNameContaining(@Param("name") String recipeName );
 
 
     //Search for all recipes that contains a specified ingredient name.
-    List<Recipe> findAllByRecipeIngredientsContaining(String name);
+    List<Recipe> findRecipesByRecipeIngredients(String name);
 
 
    // Search for all recipes that belong to a specific recipe category.

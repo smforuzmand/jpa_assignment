@@ -12,11 +12,12 @@ public interface IngredientRepository extends CrudRepository<Ingredient, Integer
 
 
     //Search for one ingredient object that matches exactly with sent in ingredient name.
-    @Query("SELECT i FROM Ingredient i WHERE LOWER(i.ingredientName) = LOWER(:in)")
-    Optional<Ingredient> findIngredientByIngredientNameIgnoreCase(@Param("in") String ingredientName);
+
+    Optional<Ingredient> findIngredientByIngredientNameIgnoreCase(String ingredientName);
 
     //Search for ingredients that contains parts of sent in ingredient name
-    List<Ingredient> findIngredientByIngredientNameContaining(String ingredientName);
+    @Query("SELECT i FROM Ingredient i WHERE LOWER(i.ingredientName)  LIKE LOWER(concat( '%' ,:name ,'%')) ")
+    List<Ingredient> findIngredientByIngredientfrgamntedName(@Param("name") String ingredientName);
 
 
     List<Ingredient> findAll();
