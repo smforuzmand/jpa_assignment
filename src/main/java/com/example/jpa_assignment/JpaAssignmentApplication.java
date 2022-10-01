@@ -53,15 +53,20 @@ class MyCommandLineRunner implements CommandLineRunner {
     public void run(String... args) throws Exception {
         System.out.println("--------------Welcome to the recipe application-------------------");
 
-
+        Ingredient dressing = ingredientRepository.save(new Ingredient("dressing"));
+        RecipeInstruction instructionCheeseCake = recipeInstructionRepository.save(new RecipeInstruction("instruction for cheeseCake"));
+        Recipe cheeseCake = recipeRepository.save(new Recipe("making cheese cake", instructionCheeseCake));
+        RecipeCategory breakfast = new RecipeCategory("breakfast");
+        cheeseCake.addCategory(breakfast);
         //Running the methods
 
-        Optional<Ingredient> matchedIngredientName = ingredientRepository.findIngredientByIngredientNameIgnoreCase("Sugar");
+        List<Ingredient> matchByFragmentedName = ingredientRepository.findIngredientByIngredientfrgamntedName("dere");
         entityManager.flush();
-        matchedIngredientName.ifPresent(System.out::println);
+        matchByFragmentedName.forEach(System.out::println);
 
 
-
+        List<Recipe> foundRecipeByIngredientName = recipeRepository.findRecipesByRecipeIngredients("dressing");
+        foundRecipeByIngredientName.forEach(recipe -> System.out.println(recipe.getRecipeName()));
     }
 
 

@@ -12,6 +12,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int recipeId;
+    @Column(nullable = false)
     private String recipeName;
 
     @OneToMany(cascade = {MERGE, REFRESH, DETACH}, fetch = FetchType.LAZY, mappedBy = "recipe")
