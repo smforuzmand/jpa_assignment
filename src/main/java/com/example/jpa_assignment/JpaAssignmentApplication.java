@@ -15,7 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
-import java.util.Optional;
 
 @SpringBootApplication
 public class JpaAssignmentApplication {
@@ -35,38 +34,38 @@ class MyCommandLineRunner implements CommandLineRunner {
                                RecipeInstructionRepository recipeInstructionRepository, RecipeRepository recipeRepository,
                                EntityManager entityManager) {
         this.ingredientRepository = ingredientRepository;
-        this.recipeIngredientRepository = recipeIngredientRepository;
         this.recipeInstructionRepository = recipeInstructionRepository;
         this.recipeRepository = recipeRepository;
         this.entityManager = entityManager;
 
     }
 
-    private IngredientRepository ingredientRepository;
-    private RecipeIngredientRepository recipeIngredientRepository;
-    private RecipeInstructionRepository recipeInstructionRepository;
-    private RecipeRepository recipeRepository;
+    private final IngredientRepository ingredientRepository;
+    private final RecipeInstructionRepository recipeInstructionRepository;
+    private final RecipeRepository recipeRepository;
 
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
 
     @Override
     public void run(String... args) throws Exception {
         System.out.println("--------------Welcome to the recipe application-------------------");
 
-        Ingredient dressing = ingredientRepository.save(new Ingredient("dressing"));
-        RecipeInstruction instructionCheeseCake = recipeInstructionRepository.save(new RecipeInstruction("instruction for cheeseCake"));
-        Recipe cheeseCake = recipeRepository.save(new Recipe("making cheese cake", instructionCheeseCake));
-        RecipeCategory breakfast = new RecipeCategory("breakfast");
-        cheeseCake.addCategory(breakfast);
+        Ingredient insertedDressingIngredient = ingredientRepository.save(new Ingredient("dressing"));
+        RecipeInstruction instructionCheeseCake = new RecipeInstruction("instruction for cheeseCake");
+        RecipeCategory recipeCategory = new RecipeCategory("breakfast");
+
+        Recipe recipe1=new Recipe("making cheese cake", instructionCheeseCake);
+        recipe1.addCategory(recipeCategory);
+        Recipe inseredRecipe = recipeRepository.save(recipe1);
         //Running the methods
 
-        List<Ingredient> matchByFragmentedName = ingredientRepository.findIngredientByIngredientfrgamntedName("dere");
-        entityManager.flush();
-        matchByFragmentedName.forEach(System.out::println);
-
-
-        List<Recipe> foundRecipeByIngredientName = recipeRepository.findRecipesByRecipeIngredients("dressing");
-        foundRecipeByIngredientName.forEach(recipe -> System.out.println(recipe.getRecipeName()));
+//        List<Ingredient> matchByFragmentedName = ingredientRepository.findIngredientByIngredientfrgamntedName("dere");
+//        entityManager.flush();
+//        matchByFragmentedName.forEach(System.out::println);
+//
+//
+//        List<Recipe> foundRecipeByIngredientName = recipeRepository.findRecipesByRecipeIngredients("dressing");
+//        foundRecipeByIngredientName.forEach(recipe -> System.out.println(recipe.getRecipeName()));
     }
 
 

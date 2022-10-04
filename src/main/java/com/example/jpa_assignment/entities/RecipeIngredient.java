@@ -13,9 +13,11 @@ import static javax.persistence.CascadeType.*;
 public class RecipeIngredient {
 
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
-    @Column(name = "recipe_ingredient_id")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private String id;
     private double amount;
     private Measurement measurement;
@@ -24,7 +26,7 @@ public class RecipeIngredient {
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @ManyToOne(cascade = { MERGE, DETACH, REFRESH},
+    @ManyToOne(cascade = {MERGE, DETACH, REFRESH},
             fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;

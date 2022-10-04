@@ -7,7 +7,7 @@ public class RecipeInstruction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private int id;
 
     @Column(nullable = false)
     private String instruction;
@@ -19,16 +19,16 @@ public class RecipeInstruction {
     public RecipeInstruction() {
     }
 
-    public RecipeInstruction(String id, String instruction) {
+    public RecipeInstruction(int id, String instruction) {
         this.id = id;
         this.instruction = instruction;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -44,8 +43,7 @@ class IngredientRepositoryTest {
     @BeforeEach
     void setUp() {
         List<Ingredient>persistedIngredient = ingredients().stream()
-                .map(entityManager::persist)
-                .collect(Collectors.toList());
+                .map(entityManager::persist).toList();
         testObject = persistedIngredient.get(0);
 
 
