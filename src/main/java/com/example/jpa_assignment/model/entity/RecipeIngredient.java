@@ -1,8 +1,6 @@
-package com.example.jpa_assignment.entities;
+package com.example.jpa_assignment.model.entity;
 
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.Objects;

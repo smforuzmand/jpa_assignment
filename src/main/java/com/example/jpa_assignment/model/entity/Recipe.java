@@ -1,4 +1,4 @@
-package com.example.jpa_assignment.entities;
+package com.example.jpa_assignment.model.entity;
 
 import javax.persistence.*;
 import java.util.*;

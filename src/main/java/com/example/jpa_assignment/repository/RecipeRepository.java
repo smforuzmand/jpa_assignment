@@ -1,16 +1,20 @@
-package com.example.jpa_assignment.data;
+package com.example.jpa_assignment.repository;
 
-import com.example.jpa_assignment.entities.Recipe;
+import com.example.jpa_assignment.model.entity.Recipe;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
+
+public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
 
 
-public interface RecipeRepository extends CrudRepository<Recipe , Integer> {
-
-
+    @Query("SELECT r FROM Recipe r WHERE r.recipeName = :rn")
+    Optional<Recipe> findByName(@Param("rn") String RecipeName);
     //Search for recipes where recipe name contains specified String.
 
     @Query("SELECT r FROM Recipe r WHERE LOWER(r.recipeName)  LIKE LOWER(concat('%' , :name , '%') )   ")

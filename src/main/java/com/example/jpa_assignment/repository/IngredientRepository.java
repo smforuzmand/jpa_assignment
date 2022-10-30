@@ -1,6 +1,6 @@
-package com.example.jpa_assignment.data;
+package com.example.jpa_assignment.repository;
 
-import com.example.jpa_assignment.entities.Ingredient;
+import com.example.jpa_assignment.model.entity.Ingredient;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

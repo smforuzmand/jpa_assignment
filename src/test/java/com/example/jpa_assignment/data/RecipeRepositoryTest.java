@@ -1,7 +1,8 @@
 package com.example.jpa_assignment.data;
 
-import com.example.jpa_assignment.entities.Recipe;
-import com.example.jpa_assignment.entities.RecipeInstruction;
+import com.example.jpa_assignment.model.entity.Recipe;
+import com.example.jpa_assignment.model.entity.RecipeInstruction;
+import com.example.jpa_assignment.repository.RecipeRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

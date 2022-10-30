@@ -1,10 +1,13 @@
 package com.example.jpa_assignment;
 
-import com.example.jpa_assignment.data.IngredientRepository;
-import com.example.jpa_assignment.data.RecipeIngredientRepository;
-import com.example.jpa_assignment.data.RecipeInstructionRepository;
-import com.example.jpa_assignment.data.RecipeRepository;
-import com.example.jpa_assignment.entities.*;
+import com.example.jpa_assignment.repository.IngredientRepository;
+import com.example.jpa_assignment.repository.RecipeIngredientRepository;
+import com.example.jpa_assignment.repository.RecipeInstructionRepository;
+import com.example.jpa_assignment.repository.RecipeRepository;
+import com.example.jpa_assignment.model.entity.Ingredient;
+import com.example.jpa_assignment.model.entity.Recipe;
+import com.example.jpa_assignment.model.entity.RecipeCategory;
+import com.example.jpa_assignment.model.entity.RecipeInstruction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
-import java.util.List;
 
 @SpringBootApplication
 public class JpaAssignmentApplication {
@@ -23,7 +25,7 @@ public class JpaAssignmentApplication {
         SpringApplication.run(JpaAssignmentApplication.class, args);
     }
 }
-
+/*
 @Profile("dev")
 @Transactional
 @Component
@@ -47,7 +49,7 @@ class MyCommandLineRunner implements CommandLineRunner {
     private final EntityManager entityManager;
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         System.out.println("--------------Welcome to the recipe application-------------------");
 
         Ingredient insertedDressingIngredient = ingredientRepository.save(new Ingredient("dressing"));
@@ -56,7 +58,7 @@ class MyCommandLineRunner implements CommandLineRunner {
 
         Recipe recipe1=new Recipe("making cheese cake", instructionCheeseCake);
         recipe1.addCategory(recipeCategory);
-        Recipe inseredRecipe = recipeRepository.save(recipe1);
+        Recipe insertedRecipe = recipeRepository.save(recipe1);
         //Running the methods
 
 //        List<Ingredient> matchByFragmentedName = ingredientRepository.findIngredientByIngredientfrgamntedName("dere");
@@ -67,8 +69,8 @@ class MyCommandLineRunner implements CommandLineRunner {
 //        List<Recipe> foundRecipeByIngredientName = recipeRepository.findRecipesByRecipeIngredients("dressing");
 //        foundRecipeByIngredientName.forEach(recipe -> System.out.println(recipe.getRecipeName()));
     }
+*/
 
 
-}
 
 
