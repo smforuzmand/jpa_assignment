@@ -1,8 +1,6 @@
-package com.example.jpa_assignment.entities;
+package com.example.jpa_assignment.model.entity;
 
-import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,16 +12,19 @@ public class RecipeIngredient {
 
     @Id
     @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
     private String id;
     private double amount;
     private Measurement measurement;
 
-    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH, DETACH}, fetch = FetchType.LAZY)
-   // @JoinColumn(name = "ingredient_id")
+    @ManyToOne(cascade = {MERGE, PERSIST, REFRESH, DETACH}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
 
-    @ManyToOne(cascade = {PERSIST, MERGE, DETACH, REFRESH},
+    @ManyToOne(cascade = {MERGE, DETACH, REFRESH},
             fetch = FetchType.LAZY)
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
@@ -111,4 +112,6 @@ public class RecipeIngredient {
                 ", recipe=" + recipe +
                 '}';
     }
+
+
 }

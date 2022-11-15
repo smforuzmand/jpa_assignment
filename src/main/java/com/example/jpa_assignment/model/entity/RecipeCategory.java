@@ -1,6 +1,7 @@
-package com.example.jpa_assignment.entities;
+package com.example.jpa_assignment.model.entity;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -13,25 +14,43 @@ public class RecipeCategory {
     private String category;
 
     @ManyToMany (cascade = {CascadeType.ALL}
-            , fetch = FetchType.EAGER)
+            , fetch = FetchType.LAZY)
     @JoinTable(name = "recipe_recipe_category" ,
     joinColumns = @JoinColumn(name = "recipe_category_id"),
     inverseJoinColumns = @JoinColumn(name = "recipe_id"))
-    private Set<Recipe> recipe;
+    private Set<Recipe> recipes;
 
+    //Convenience method to add/remove recipe
 
     public RecipeCategory() {
     }
 
-    public RecipeCategory(String category, Set<Recipe> recipe) {
+    public RecipeCategory(String category) {
         this.category = category;
-        this.recipe = recipe;
+        setRecipe(new HashSet<>());
+
     }
 
-    public RecipeCategory(int id, String category, Set<Recipe> recipe) {
+    public RecipeCategory(int id, String category) {
         this.id = id;
         this.category = category;
-        this.recipe = recipe;
+        setRecipe(new HashSet<>());
+    }
+
+    public void addRecipe(Recipe recipe) {
+        if (recipes == null) {
+            recipes = new HashSet<>();
+        }
+        if (!recipes.contains(recipe)) {
+            recipes.add(recipe);
+        }
+    }
+
+    public void removeRecipe(Recipe recipe) {
+        if (recipes.contains(recipe)) {
+            recipes.remove(recipe);
+        }
+
     }
 
     public int getId() {
@@ -51,11 +70,11 @@ public class RecipeCategory {
     }
 
     public Set<Recipe> getRecipe() {
-        return recipe;
+        return recipes;
     }
 
     public void setRecipe(Set<Recipe> recipe) {
-        this.recipe = recipe;
+        this.recipes = recipe;
     }
 
     @Override
@@ -76,7 +95,7 @@ public class RecipeCategory {
         return "RecipeCategory{" +
                 "id=" + id +
                 ", category='" + category + '\'' +
-                ", recipe=" + recipe +
+                ", recipes=" + recipes +
                 '}';
     }
 }
